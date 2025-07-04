@@ -1,0 +1,65 @@
+---
+- name: Verify Vector installation and configuration
+  hosts: all
+  become: true
+  tasks:
+
+    - name: Check that vector binary exists
+      ansible.builtin.stat:
+        path: /usr/bin/vector
+      register: vector_binary
+
+    - name: Assert vector binary is present
+      ansible.builtin.assert:
+        that:
+          - vector_binary.stat.exists
+          - vector_binary.stat.mode is defined
+        fail_msg: "Vector binary not found"
+
+    - name: Check that vector config exists
+      ansible.builtin.stat:
+        path: /etc/vector/vector.toml
+      register: vector_config
+
+    - name: Assert vector config exists
+      ansible.builtin.assert:
+        that:
+          - vector_config.stat.exists
+        fail_msg: "Vector config file not found"
+
+    - name: Validate vector config
+      ansible.builtin.command: vector validate --no-environment
+      register: validate_result
+      changed_when: false
+      failed_when: validate_result.rc != 0
+
+    - name: Assert vector config validation passed
+      ansible.builtin.assert:
+        that:
+          - validate_result.rc == 0
+        fail_msg: "Vector config validation failed"
+
+    - name: Check that vector process is running
+      ansible.builtin.shell: pgrep -f "vector"
+      register: vector_process
+      changed_when: false
+      failed_when: vector_process.rc != 0
+
+    - name: Assert vector process is running
+      ansible.builtin.assert:
+        that:
+          - vector_process.rc == 0
+        fail_msg: "Vector process not running"
+
+    - name: Check Vector listening port (optional)
+      ansible.builtin.shell: ss -lnt | grep 9000
+      register: vector_port
+      changed_when: false
+      failed_when: false
+
+    - name: Assert Vector port is listening
+      ansible.builtin.assert:
+        that:
+          - "'LISTEN' in vector_port.stdout"
+        fail_msg: "Vector is not listening on port 9000"
+      when: vector_port.stdout != ""

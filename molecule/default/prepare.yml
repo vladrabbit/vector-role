@@ -1,0 +1,8 @@
+---
+- name: Prepare Ubuntu instance
+  hosts: all
+  become: false
+  gather_facts: false
+  tasks:
+    - name: Install sudo and python3 on Ubuntu
+      raw: apt-get update && apt-get install -y sudo python3

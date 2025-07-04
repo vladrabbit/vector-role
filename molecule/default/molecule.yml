@@ -1,0 +1,18 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: ubuntu
+    image: ubuntu:latest
+    pre_build_image: true
+provisioner:
+  name: ansible
+  playbooks:
+    prepare: prepare.yml
+  env:
+    ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3
+
+verifier:
+  name: ansible
