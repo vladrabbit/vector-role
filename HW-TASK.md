@@ -16,13 +16,13 @@
 После выполнения у вас должно получится два сценария molecule и один tox.ini файл в репозитории. Не забудьте указать в ответе теги решений Tox и Molecule заданий. В качестве решения пришлите ссылку на  ваш репозиторий и скриншоты этапов выполнения задания. 
 
 ### Molecule
-[Molecule converge](https://github.com/vladrabbit/vector-role/blob/main/.screenshots/mc-1.png)
-[Molecule verify](https://github.com/vladrabbit/vector-role/blob/main/.screenshots/mv-1.png) 
+![Molecule converge](https://github.com/vladrabbit/vector-role/blob/main/.screenshots/mc-1.png)
+![Molecule verify](https://github.com/vladrabbit/vector-role/blob/main/.screenshots/mv-1.png) 
 
 
 ### Tox
 
-[Tox docker test start](https://github.com/vladrabbit/vector-role/blob/main/.screenshots/tox-start.png)
-[Tox docker end](https://github.com/vladrabbit/vector-role/blob/main/.screenshots/tox-end.png)
+![Tox docker test start](https://github.com/vladrabbit/vector-role/blob/main/.screenshots/tox-start.png)
+![Tox docker end](https://github.com/vladrabbit/vector-role/blob/main/.screenshots/tox-end.png)
 
 
